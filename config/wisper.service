@@ -1,0 +1,13 @@
+[Unit]
+Description=fillip.pro Blog  
+After=docker.service  
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0  
+ExecStartPre=-/usr/bin/docker rm --force blog.fillip.pro  
+ExecStartPre=/usr/bin/docker pull ghost  
+ExecStart=/usr/bin/docker run --name blog.fillip.pro -v /var/web/blog.fillip.pro:/var/lib/ghost -p 8200:2368 ghost
+
+[Install]
+WantedBy=multi-user.target  
